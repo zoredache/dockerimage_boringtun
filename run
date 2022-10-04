@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# inspired by
+# https://github.com/linuxserver/docker-wireguard/blob/master/root/etc/services.d/wireguard/run
+
+test -f /etc/wireguard/${WG_IF=wg0}.conf || exit 1
+
+_term() {
+  echo "Caught SIGTERM signal!"
+  wg-quick down ${WG_IF=wg0}
+}
+
+trap _term SIGTERM
+trap _term INT
+
+wg-quick up ${WG_IF=wg0}
+
+sleep infinity &
+
+wait
