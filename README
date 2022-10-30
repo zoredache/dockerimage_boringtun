@@ -1,0 +1,18 @@
+I build the container `docker build --tag registry.example.org/zoredache/boringtun .` and push to my local registry.
+
+I create a local wireguard configuration file wg0.conf. I created a synology account 'wireguard' and put the configs there.
+
+Then I start a container with a compose file like this.
+
+    version: "2"
+    services:
+      boringtun:
+        # privileged: true
+        image: registry.example.org/zoredache/boringtun
+        devices:
+        - "/dev/net/tun:/dev/net/tun"
+        cap_add:
+        - NET_ADMIN
+        network_mode: host
+        volumes:
+        - "/var/services/homes/wireguard/wg0.conf:/etc/wireguard/wg0.conf"
