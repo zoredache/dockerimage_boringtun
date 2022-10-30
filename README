@@ -1,6 +1,11 @@
-I build the container `docker build --tag registry.example.org/zoredache/boringtun .` and push to my local registry.
+I have a synology and I wanted to use wireguard on it without messing around with kernel modules.
+So I made myself a docker image with [boringtun](https://github.com/cloudflare/boringtun) and the various wireguard tools.
 
-I create a local wireguard configuration file wg0.conf. I created a synology account 'wireguard' and put the configs there.
+I build the image using `docker build --tag registry.example.org/zoredache/boringtun .` and push to my local registry.
+If you have or want to use a local registry just take the image with whatever name you like.
+
+I manually created a local wireguard configuration file wg0.conf.
+I created a synology account 'wireguard' and put the in configs in `/var/services/homes/wireguard/wg0.conf`.
 
 Then I start a container with a compose file like this.
 
